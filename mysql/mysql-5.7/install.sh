@@ -6,7 +6,7 @@ set -euo pipefail
 declare -r CUR=$(cd $(dirname $0); pwd)
 . ./var.conf
 
-pushd ${CUR} > /dev/null
+pushd ${CUR}
 
 
 ### Install
@@ -26,4 +26,4 @@ rm -f ./conf/mysql_secure_installation.sql
 
 
 ### End
-popd > /dev/null
+popd
