@@ -1,12 +1,12 @@
 mode=unattended
 
 # Basic
-alfresco_admin_password=#ADMIN_PASS#
+alfresco_admin_password=#ALFRESCO_ADMIN_PASS#
 installer-language=ja
 
 # JDBC
-jdbc_url=jdbc:mysql://localhost:3306/alfresco?useUnicode=yes&characterEncoding=UTF-8
+jdbc_url=jdbc:mysql://localhost:3306/#ALFRESCO_DB_NAME#?useUnicode=yes&characterEncoding=UTF-8
 jdbc_driver=org.gjt.mm.mysql.Driver
-jdbc_database=alfresco
-jdbc_username=alfresco
-jdbc_password=alfresco
+jdbc_database=#ALFRESCO_DB_NAME#
+jdbc_username=#ALFRESCO_DB_USER#
+jdbc_password=#ALFRESCO_DB_PASS#
