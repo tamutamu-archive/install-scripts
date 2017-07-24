@@ -6,11 +6,20 @@ set -euo pipefail
 declare -r CUR=$(cd $(dirname $0); pwd)
 . var.conf
 
-pushd ${CUR} > /dev/null
+pushd ${CUR}
+
+
+### Install mysql-5.7.
+pushd ../../mysql/mysql-5.7/
+./install.sh
+
+# Import mysql root password.
+. ./var.conf
+popd
 
 
 ### Install.
-pushd /tmp > /dev/null
+pushd /tmp
 
 # Get Installer file.
 curl -O ${INSTALLER_DOWNLOAD_URL}
@@ -20,11 +29,6 @@ chmod u+x ./${installer_name}
 # Prepare install option file.
 sed -e "s/#ALFRESCO_ADMIN_PASS#/${ALFRESCO_ADMIN_PASS}/" ${CUR}/conf/optionfile.tmpl > ./optionfile
 
-# Install mysql-5.7.
-pushd ../../mysql/mysql-5.7/ > /dev/null
-./install.sh
-. ./var.conf
-popd > /dev/null
 
 # Create Database.
 sed -e "s/#ALFRESCO_DB_NAME#/${ALFRESCO_DB_NAME}/" \
@@ -34,6 +38,13 @@ sed -e "s/#ALFRESCO_DB_NAME#/${ALFRESCO_DB_NAME}/" \
 
 mysql -uroot -p${MYSQL_ROOT_PASS} < ./create_database.sh
 
+# Put JDBC Driver.
+pushd /tmp
+curl -O https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.43.tar.gz
+tar -xzvf mysql-connector-java-5.1.43.tar.gz
+cp mysql-connector-java-5.1.43-bin.jar /opt/alfresco/tomcat/lib/
+popd
+
 
 ### End
-popd > /dev/null
+popd
