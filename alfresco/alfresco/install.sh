@@ -45,6 +45,12 @@ sed -e "s/#ALFRESCO_ADMIN_PASS#/${ALFRESCO_ADMIN_PASS}/" \
 # Install.
 ./${installer_name}  --optionfile ./optionfile
 
+# Modify for office doc preview.
+# Edit script and rename script file name.
+sed -e 's/$SOFFICE_PORT\\;urp\\;/$SOFFICE_PORT;urp;/' \
+  /opt/alfresco/libreoffice/scripts/libreoffice_ctl.sh > /opt/alfresco/libreoffice/scripts/ctl.sh
+chmod a+x /opt/alfresco/libreoffice/scripts/ctl.sh
+
 # Put JDBC Driver.
 pushd /tmp
 curl -O -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.43.tar.gz
