@@ -36,7 +36,11 @@ declare -r installer_name=$(echo ${INSTALLER_DOWNLOAD_URL} | sed -e 's#http://.*
 chmod u+x ./${installer_name}
 
 # Prepare install option file.
-sed -e "s/#ALFRESCO_ADMIN_PASS#/${ALFRESCO_ADMIN_PASS}/" ${CUR}/conf/optionfile.tmpl > ./optionfile
+sed -e "s/#ALFRESCO_ADMIN_PASS#/${ALFRESCO_ADMIN_PASS}/" \
+    -e "s/#ALFRESCO_DB_NAME#/${ALFRESCO_DB_NAME}/" \
+    -e "s/#ALFRESCO_DB_USER#/${ALFRESCO_DB_USER}/" \
+    -e "s/#ALFRESCO_DB_PASS#/${ALFRESCO_DB_PASS}/" \
+ ${CUR}/conf/optionfile.tmpl > ./optionfile
 
 # Install.
 ./${installer_name}  --optionfile ./optionfile
