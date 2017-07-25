@@ -27,6 +27,10 @@ sed -e "s/#ALFRESCO_DB_NAME#/${ALFRESCO_DB_NAME}/" \
 mysql -uroot -p${MYSQL_ROOT_PASS} < ./create_database.sh
 
 
+### Install LibreOffice
+yum -y install libreoffice
+
+
 ### Install Alfresco.
 pushd /tmp
 
